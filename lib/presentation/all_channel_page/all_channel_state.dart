@@ -19,3 +19,9 @@ class ChannelError extends AllChannelState {
 
   ChannelError(this.message);
 }
+
+class FollowSuccess extends AllChannelState {
+  final List<Channel> updatedChannels;
+
+  FollowSuccess(this.updatedChannels);
+}

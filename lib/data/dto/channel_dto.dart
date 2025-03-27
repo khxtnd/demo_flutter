@@ -23,10 +23,10 @@ class ChannelDto {
   @JsonKey(defaultValue: "")
   final String imageCoverUrl;
 
-  @JsonKey(defaultValue: 0)
-  final int numFollow;
-  @JsonKey(defaultValue: 0)
-  final int numVideo;
+  @JsonKey(name: "numFollows", defaultValue: 0)
+  final int numFollows;
+  @JsonKey(name: "numVideos", defaultValue: 0)
+  final int numVideos;
   @JsonKey(defaultValue: 0)
   final int isOfficial;
   @JsonKey(defaultValue: 0)
@@ -49,8 +49,8 @@ class ChannelDto {
     required this.imageUrl,
     required this.description,
     required this.imageCoverUrl,
-    required this.numFollow,
-    required this.numVideo,
+    required this.numFollows,
+    required this.numVideos,
     required this.isOfficial,
     required this.isFollow,
     required this.isMyChannel,
@@ -71,8 +71,8 @@ class ChannelDto {
     imageUrl: imageUrl,
     description: description,
     imageCoverUrl: imageCoverUrl,
-    numFollow: numFollow,
-    numVideo: numVideo,
+    numFollow: numFollows,
+    numVideo: numVideos,
     isOfficial: isOfficial,
     isFollow: isFollow,
     isMyChannel: isMyChannel,

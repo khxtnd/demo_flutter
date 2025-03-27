@@ -1,3 +1,5 @@
+import 'package:demo_flutter/domain/usecases/follow_channel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:bloc/bloc.dart';
@@ -8,17 +10,45 @@ import 'all_channel_state.dart';
 class AllChannelBloc extends Bloc<ChannelEvent, AllChannelState> {
   final GetAllChannel getAllChannel;
 
-  AllChannelBloc({required this.getAllChannel}) : super(ChannelInitial()) {
-    on<GetAllChannelEvent>((event, emit) async {
-      try {
-        emit(ChannelLoading());
-        final channels = await getAllChannel();
-        emit(ChannelLoaded(channels));
-      } catch (e) {
-        emit(ChannelError('Failed to load channels: $e'));
-      }
-    });
+  final FollowChannel followChannel;
+
+  AllChannelBloc({
+    required this.getAllChannel,
+    required this.followChannel,
+  }) : super(ChannelInitial()) {
+    on<GetAllChannelEvent>(_onGetAllChannels);
+    on<FollowChannelEvent>(_onFollowChannel);
   }
+
+
+  Future<void> _onGetAllChannels(
+      GetAllChannelEvent event, Emitter<AllChannelState> emit) async {
+    try {
+      emit(ChannelLoading());
+      final channels = await getAllChannel();
+      emit(ChannelLoaded(channels));
+    } catch (e) {
+      emit(ChannelError('Failed to load channels: $e'));
+    }
+  }
+
+  Future<void> _onFollowChannel(
+      FollowChannelEvent event, Emitter<AllChannelState> emit) async {
+    if (state is ChannelLoaded) {
+      try {
+        final result = await followChannel();
+        if (result) {
+
+          emit(FollowSuccess(followChannel));
+        } else {
+          emit(ChannelError('Follow/Unfollow failed.'));
+        }
+      } catch (e) {
+        emit(ChannelError('Error: $e'));
+      }
+    }
+  }
+
 }
 
 

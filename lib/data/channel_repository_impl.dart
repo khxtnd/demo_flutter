@@ -1,4 +1,3 @@
-
 import 'package:demo_flutter/data/source/remote/api.dart';
 import 'package:demo_flutter/domain/entities/channel.dart';
 import 'package:demo_flutter/domain/repositories/channel_repository.dart';
@@ -20,5 +19,13 @@ class ChannelRepositoryImpl implements ChannelRepository {
       throw Exception('Failed to load livestreams: $e');
     }
   }
-}
 
+  @override
+  Future<bool> followChannel() async {
+    try {
+      return await _api.followChannel();
+    } catch (e) {
+      throw Exception('Failed followChannel: $e');
+    }
+  }
+}

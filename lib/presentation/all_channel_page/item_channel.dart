@@ -43,7 +43,7 @@ class ItemChannel extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "8k Follower • 367 Videos",
+                    "${channel.numFollow} Follower • ${channel.numVideo} Videos",
                     style: TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],
