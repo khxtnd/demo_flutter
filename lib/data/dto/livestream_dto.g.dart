@@ -27,6 +27,7 @@ LivestreamDto _$LivestreamDtoFromJson(Map<String, dynamic> json) =>
       videoId: LivestreamDto._parseToString(json['videoId']),
       type: (json['type'] as num).toInt(),
       isNotified: json['isNotified'] as bool? ?? false,
+      channel: ChannelDto.fromJson(json['channel'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LivestreamDtoToJson(LivestreamDto instance) =>
@@ -50,4 +51,5 @@ Map<String, dynamic> _$LivestreamDtoToJson(LivestreamDto instance) =>
       'videoId': instance.videoId,
       'type': instance.type,
       'isNotified': instance.isNotified,
+      'channel': instance.channel,
     };

@@ -37,7 +37,7 @@ class LivestreamDto {
   final int type;
   @JsonKey(defaultValue: false)
   final bool isNotified;
-  // final ChannelDto channel;
+  final ChannelDto channel;
 
   LivestreamDto({
     required this.id,
@@ -59,7 +59,7 @@ class LivestreamDto {
     required this.videoId,
     required this.type,
     required this.isNotified,
-    // required this.channel,
+    required this.channel,
   });
 
   factory LivestreamDto.fromJson(Map<String, dynamic> json) => _$LivestreamDtoFromJson(json);

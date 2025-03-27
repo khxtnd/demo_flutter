@@ -1,17 +1,18 @@
 
+import 'package:demo_flutter/data/source/remote/api.dart';
+
 import '../domain/entities/livestream.dart';
 import '../domain/repositories/livestream_repository.dart';
-import 'datasources/remote/livestream_remote_datasource.dart';
 
 class LivestreamRepositoryImpl implements LivestreamRepository {
-  final LivestreamRemoteDataSource remoteDataSource;
+  final Api _api;
 
-  LivestreamRepositoryImpl({required this.remoteDataSource});
+  LivestreamRepositoryImpl({required Api api}) : _api = api;
 
   @override
   Future<List<Livestream>> getAllLivestream() async {
     try {
-      final livestreamModels = await remoteDataSource.getAllLivestream();
+      final livestreamModels = await _api.getAllLivestream();
       return livestreamModels.map((livestreamModel) => livestreamModel.toEntity()).toList();
     } catch (e) {
       throw Exception('Failed to load livestreams: $e');

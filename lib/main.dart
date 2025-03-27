@@ -1,15 +1,27 @@
-import 'package:demo_flutter/presentation/blocs/livestream_bloc.dart';
-import 'package:demo_flutter/presentation/blocs/livestream_event.dart';
-import 'package:demo_flutter/presentation/blocs/livestream_state.dart';
-import 'package:demo_flutter/presentation/screens/livestream_screen.dart';
+import 'dart:io';
+
+import 'package:demo_flutter/presentation/all_channel_page/all_channel_bloc.dart';
+import 'package:demo_flutter/presentation/all_channel_page/all_channel_event.dart';
+import 'package:demo_flutter/presentation/all_channel_page/all_channel_page.dart';
+import 'package:demo_flutter/presentation/all_livestream_page/all_livestream_page.dart';
+import 'package:demo_flutter/presentation/all_livestream_page/livestream_bloc.dart';
+import 'package:demo_flutter/presentation/all_livestream_page/livestream_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/di/injection.dart';
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 void main() {
-  init();  // Đảm bảo gọi init() trước khi chạy ứng dụng
+  HttpOverrides.global = MyHttpOverrides();
+  init();
   runApp(MyApp());
 }
 
@@ -18,44 +30,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Livestream App',
+      // home: BlocProvider(
+      //   create: (context) => getIt<AllLivestreamBloc>()..add(GetAllLivestreamEvent()),  // Thêm sự kiện GetLivestreamEvent
+      //   child: AllLivestreamPage(),
+      // ),
+
       home: BlocProvider(
-        create: (context) => getIt<LivestreamBloc>()..add(GetLivestreamEvent()),  // Thêm sự kiện GetLivestreamEvent
-        child: LivestreamScreen(),
+        create: (context) => getIt<AllChannelBloc>()..add(GetAllChannelEvent()),  // Thêm sự kiện GetLivestreamEvent
+        child: AllChannelPage(),
       ),
     );
   }
+
 }
 
-class LivestreamScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Livestreams')),
-      body: BlocBuilder<LivestreamBloc, LivestreamState>(
-        builder: (context, state) {
-          if (state is LivestreamLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is LivestreamLoaded) {
-            return ListView.builder(
-              itemCount: state.livestreams.length,
-              itemBuilder: (context, index) {
-                final livestream = state.livestreams[index];
-                return ListTile(
-                  title: Text(livestream.title),
-                  subtitle: Text(livestream.description),
-                );
-              },
-            );
-          } else if (state is LivestreamError) {
-            return Center(child: Text('Error: ${state.message}'));
-          } else {
-            return Center(child: Text('No Livestreams available.'));
-          }
-        },
-      ),
-    );
-  }
-}
 
 
 

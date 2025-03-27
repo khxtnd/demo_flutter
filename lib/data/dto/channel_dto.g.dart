@@ -7,18 +7,19 @@ part of 'channel_dto.dart';
 // **************************************************************************
 
 ChannelDto _$ChannelDtoFromJson(Map<String, dynamic> json) => ChannelDto(
-  id: json['id'] as String,
-  name: json['name'] as String,
-  imageUrl: json['imageUrl'] as String,
-  description: json['description'] as String,
-  imageCoverUrl: json['imageCoverUrl'] as String,
-  numFollow: (json['numFollow'] as num).toInt(),
-  numVideo: (json['numVideo'] as num).toInt(),
-  isOfficial: (json['isOfficial'] as num).toInt(),
-  isFollow: (json['isFollow'] as num).toInt(),
-  isMyChannel: (json['isMyChannel'] as num).toInt(),
-  url: json['url'] as String,
-  state: json['state'] as String,
+  id: ChannelDto._parseToString(json['id']),
+  msisdn: ChannelDto._parseToString(json['msisdn']),
+  name: json['channelName'] as String,
+  imageUrl: json['channelAvatar'] as String,
+  description: json['description'] as String? ?? '',
+  imageCoverUrl: json['imageCoverUrl'] as String? ?? '',
+  numFollow: (json['numFollow'] as num?)?.toInt() ?? 0,
+  numVideo: (json['numVideo'] as num?)?.toInt() ?? 0,
+  isOfficial: (json['isOfficial'] as num?)?.toInt() ?? 0,
+  isFollow: (json['isFollow'] as num?)?.toInt() ?? 0,
+  isMyChannel: (json['isMyChannel'] as num?)?.toInt() ?? 0,
+  url: json['url'] as String? ?? '',
+  state: json['state'] as String? ?? '',
   statusLive: json['statusLive'] as bool? ?? false,
   owner: json['owner'] as bool? ?? false,
 );
@@ -26,8 +27,9 @@ ChannelDto _$ChannelDtoFromJson(Map<String, dynamic> json) => ChannelDto(
 Map<String, dynamic> _$ChannelDtoToJson(ChannelDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
-      'imageUrl': instance.imageUrl,
+      'msisdn': instance.msisdn,
+      'channelName': instance.name,
+      'channelAvatar': instance.imageUrl,
       'description': instance.description,
       'imageCoverUrl': instance.imageCoverUrl,
       'numFollow': instance.numFollow,
