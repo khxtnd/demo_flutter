@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 import '../../domain/entities/channel.dart';
 
-part 'channel_model.g.dart';
+part 'channel_dto.g.dart';
 
 @JsonSerializable()
-class ChannelModel {
+class ChannelDto {
   final String id;
   final String name;
   final String imageUrl;
@@ -20,7 +20,7 @@ class ChannelModel {
   final bool statusLive;
   final bool owner;
 
-  ChannelModel({
+  ChannelDto({
     required this.id,
     required this.name,
     required this.imageUrl,
@@ -37,8 +37,9 @@ class ChannelModel {
     required this.owner,
   });
 
-  factory ChannelModel.fromJson(Map<String, dynamic> json) => _$ChannelModelFromJson(json);
-  Map<String, dynamic> toJson() => _$ChannelModelToJson(this);
+  factory ChannelDto.fromJson(Map<String, dynamic> json) => _$ChannelDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$ChannelDtoToJson(this);
+
 
   Channel toEntity() => Channel(
     id: id,

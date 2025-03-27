@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 import '../../domain/entities/livestream.dart';
-import 'channel_model.dart';
+import 'channel_dto.dart';
 
-part 'livestream_model.g.dart';
+part 'livestream_dto.g.dart';
 
 @JsonSerializable()
-class LivestreamModel {
+class LivestreamDto {
   @JsonKey(fromJson: _parseToString)
   final String id;
   @JsonKey(fromJson: _parseToString)
@@ -27,15 +27,19 @@ class LivestreamModel {
   final String channelId;
   @JsonKey(fromJson: _parseToString)
   final String channelName;
+
+  @JsonKey(defaultValue: false)
   final bool follow;
+  @JsonKey(defaultValue: false)
   final bool like;
   @JsonKey(fromJson: _parseToString)
   final String videoId;
   final int type;
+  @JsonKey(defaultValue: false)
   final bool isNotified;
-  final ChannelModel channel;
+  // final ChannelDto channel;
 
-  LivestreamModel({
+  LivestreamDto({
     required this.id,
     required this.title,
     required this.description,
@@ -55,11 +59,12 @@ class LivestreamModel {
     required this.videoId,
     required this.type,
     required this.isNotified,
-    required this.channel,
+    // required this.channel,
   });
 
-  factory LivestreamModel.fromJson(Map<String, dynamic> json) => _$LivestreamModelFromJson(json);
-  Map<String, dynamic> toJson() => _$LivestreamModelToJson(this);
+  factory LivestreamDto.fromJson(Map<String, dynamic> json) => _$LivestreamDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$LivestreamDtoToJson(this);
+
 
   Livestream toEntity() => Livestream(
     id: id,
@@ -81,7 +86,7 @@ class LivestreamModel {
     videoId: videoId,
     type: type,
     isNotified: isNotified,
-    channel: channel.toEntity(),
+    // channel: channel.toEntity(),
   );
 
   static String _parseToString(dynamic value) {

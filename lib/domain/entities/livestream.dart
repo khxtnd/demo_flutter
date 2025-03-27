@@ -20,7 +20,7 @@ class Livestream {
   final String videoId;
   final int type;
   final bool isNotified;
-  final Channel channel;
+  // final Channel channel;
 
   Livestream({
     required this.id,
@@ -42,6 +42,6 @@ class Livestream {
     required this.videoId,
     required this.type,
     required this.isNotified,
-    required this.channel,
+    // required this.channel,
   });
 }

@@ -1,6 +1,5 @@
 import 'package:demo_flutter/domain/entities/livestream.dart';
 
-import '../../data/models/livestream_model.dart';
 
 abstract class LivestreamState {}
 

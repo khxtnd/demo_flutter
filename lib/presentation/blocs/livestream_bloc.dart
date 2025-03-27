@@ -1,6 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/models/livestream_model.dart';
-import '../../domain/entities/livestream.dart';
 import '../../domain/usecases/get_livestreams.dart';
 
 import 'package:bloc/bloc.dart';

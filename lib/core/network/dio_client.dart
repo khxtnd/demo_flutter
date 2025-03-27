@@ -8,8 +8,8 @@ class DioClient {
     : dio = Dio(
         BaseOptions(
           baseUrl: 'https://mytelapi-live.ringme.vn', // Đặt URL gốc của API
-          connectTimeout: Duration(seconds: 5), // Timeout kết nối 5 giây
-          receiveTimeout: Duration(seconds: 3), // Timeout nhận dữ liệu 3 giây
+          connectTimeout: Duration(seconds: 30), // Timeout kết nối 5 giây
+          receiveTimeout: Duration(seconds: 30), // Timeout nhận dữ liệu 3 giây
         ),
       ) {
 

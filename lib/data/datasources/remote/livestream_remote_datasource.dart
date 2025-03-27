@@ -1,14 +1,13 @@
+import 'package:demo_flutter/data/dto/livestream_dto.dart';
+import 'package:demo_flutter/core/network/response_base.dart';
 import 'package:dio/dio.dart';
+import 'package:http/http.dart';
 
 import '../../../core/network/dio_client.dart';
-import '../../models/livestream_model.dart';
-
-
-import 'package:dio/dio.dart';
 
 
 abstract class LivestreamRemoteDataSource {
-  Future<List<LivestreamModel>> getAllLivestream();
+  Future<List<LivestreamDto>> getAllLivestream();
 }
 
 class LivestreamRemoteDataSourceImpl implements LivestreamRemoteDataSource {
@@ -18,7 +17,7 @@ class LivestreamRemoteDataSourceImpl implements LivestreamRemoteDataSource {
       : dio = dioClient.client;
 
   @override
-  Future<List<LivestreamModel>> getAllLivestream() async {
+  Future<List<LivestreamDto>> getAllLivestream() async {
     try {
       final response = await dio.get(
         '/LivestreamAPI/v2/my_livestream/all',
@@ -35,9 +34,16 @@ class LivestreamRemoteDataSourceImpl implements LivestreamRemoteDataSource {
           },
         ),
       );
-      return (response.data as List)
-          .map((livestream) => LivestreamModel.fromJson(livestream))
-          .toList();
+
+      final responseData = ResponseBase<List<LivestreamDto>>.fromJson(
+        response.data,
+            (json) => (json as List<dynamic>)
+            .map((e) => LivestreamDto.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+
+      return responseData.data;
+
     } catch (e) {
       throw Exception('Failed to load livestreams: $e');
     }

@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'channel_model.dart';
+part of 'channel_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChannelModel _$ChannelModelFromJson(Map<String, dynamic> json) => ChannelModel(
+ChannelDto _$ChannelDtoFromJson(Map<String, dynamic> json) => ChannelDto(
   id: json['id'] as String,
   name: json['name'] as String,
   imageUrl: json['imageUrl'] as String,
@@ -19,11 +19,11 @@ ChannelModel _$ChannelModelFromJson(Map<String, dynamic> json) => ChannelModel(
   isMyChannel: (json['isMyChannel'] as num).toInt(),
   url: json['url'] as String,
   state: json['state'] as String,
-  statusLive: json['statusLive'] as bool,
-  owner: json['owner'] as bool,
+  statusLive: json['statusLive'] as bool? ?? false,
+  owner: json['owner'] as bool? ?? false,
 );
 
-Map<String, dynamic> _$ChannelModelToJson(ChannelModel instance) =>
+Map<String, dynamic> _$ChannelDtoToJson(ChannelDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

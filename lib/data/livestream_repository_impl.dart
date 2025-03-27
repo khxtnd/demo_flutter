@@ -1,7 +1,7 @@
 
-import '../../domain/entities/livestream.dart';
-import '../../domain/repositories/livestream_repository.dart';
-import '../datasources/remote/livestream_remote_datasource.dart';
+import '../domain/entities/livestream.dart';
+import '../domain/repositories/livestream_repository.dart';
+import 'datasources/remote/livestream_remote_datasource.dart';
 
 class LivestreamRepositoryImpl implements LivestreamRepository {
   final LivestreamRemoteDataSource remoteDataSource;

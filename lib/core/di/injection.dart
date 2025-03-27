@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import '../../data/datasources/remote/livestream_remote_datasource.dart';
-import '../../data/repositories/livestream_repository_impl.dart';
+import '../../data/livestream_repository_impl.dart';
 import '../../domain/repositories/livestream_repository.dart';
 import '../../domain/usecases/get_livestreams.dart';
 import '../../presentation/blocs/livestream_bloc.dart';
