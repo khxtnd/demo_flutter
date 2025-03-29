@@ -10,7 +10,7 @@ abstract class Api {
 
   Future<List<LivestreamDto>> getAllLivestream();
 
-  Future<bool> followChannel();
+  Future<bool> followChannel(String channelId);
 }
 
 class ApiImpl implements Api {
@@ -18,11 +18,17 @@ class ApiImpl implements Api {
 
   ApiImpl({required DioClient dioClient}) : dio = dioClient.client;
 
+  final String GET_ALL_LIVESTREAM="/LivestreamAPI/v2/my_livestream/all";
+
+  final String GET_ALL_CHANNEL="/LivestreamAPI/v1/channel/list/v2";
+  
+  final String FOLLOW_CHANNEL="/LivestreamAPI/v1/channel/{id}/follow";
+
   @override
   Future<List<LivestreamDto>> getAllLivestream() async {
     try {
       final response = await dio.get(
-        '/LivestreamAPI/v2/my_livestream/all',
+        GET_ALL_LIVESTREAM,
         queryParameters: {
           "userId": "0902448362",
           "featureId": 5,
@@ -55,7 +61,7 @@ class ApiImpl implements Api {
   Future<List<ChannelDto>> getAllChannel() async {
     try {
       final response = await dio.get(
-        '/LivestreamAPI/v1/channel/list/v2',
+        GET_ALL_CHANNEL,
         queryParameters: {"userId": "0902448362", "page": 0, "size": 10},
         options: Options(
           headers: {
@@ -80,11 +86,11 @@ class ApiImpl implements Api {
   }
 
   @override
-  Future<bool> followChannel() async {
+  Future<bool> followChannel(String channelId) async {
     String time = DateTime.now().millisecondsSinceEpoch.toString();
     try {
       final response = await dio.get(
-        '/LivestreamAPI/v1/channel/{id}/follow',
+        FOLLOW_CHANNEL.replaceAll("{id}", channelId),
         queryParameters: {
           "msisdn": "0902448362",
           "timestamp": time,

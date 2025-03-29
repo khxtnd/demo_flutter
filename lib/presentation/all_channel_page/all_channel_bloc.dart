@@ -1,5 +1,4 @@
 import 'package:demo_flutter/domain/usecases/follow_channel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:bloc/bloc.dart';
@@ -36,14 +35,11 @@ class AllChannelBloc extends Bloc<ChannelEvent, AllChannelState> {
       FollowChannelEvent event, Emitter<AllChannelState> emit) async {
     if (state is ChannelLoaded) {
       try {
-        final result = await followChannel();
-        if (result) {
-
-          emit(FollowSuccess(followChannel));
-        } else {
-          emit(ChannelError('Follow/Unfollow failed.'));
-        }
+        final result = await followChannel(event.channelId);
+        emit(FollowSuccess(result));
+        print("khanhpq 999999");
       } catch (e) {
+        print("khanhpq "+e.toString());
         emit(ChannelError('Error: $e'));
       }
     }

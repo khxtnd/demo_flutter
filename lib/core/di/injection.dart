@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import '../../data/livestream_repository_impl.dart';
 import '../../data/source/remote/api.dart';
 import '../../domain/repositories/livestream_repository.dart';
+import '../../domain/usecases/follow_channel.dart';
 import '../../domain/usecases/get_all_livestreams.dart';
 
 import 'package:get_it/get_it.dart';
@@ -37,11 +38,12 @@ void init() {
   // Domain
   getIt.registerLazySingleton(() => GetAllLivestream(getIt<LivestreamRepository>()));
   getIt.registerLazySingleton(() => GetAllChannel(getIt<ChannelRepository>()));
+  getIt.registerLazySingleton(() => FollowChannel(getIt<ChannelRepository>()));
 
 
   // Presentation
   getIt.registerFactory(() => AllLivestreamBloc(getAllLivestream: getIt()));
-  getIt.registerFactory(() => AllChannelBloc(getAllChannel: getIt()));
+  getIt.registerFactory(() => AllChannelBloc(getAllChannel: getIt<GetAllChannel>(),followChannel: getIt<FollowChannel>()));
 
 }
 

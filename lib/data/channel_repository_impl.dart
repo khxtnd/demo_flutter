@@ -21,9 +21,9 @@ class ChannelRepositoryImpl implements ChannelRepository {
   }
 
   @override
-  Future<bool> followChannel() async {
+  Future<bool> followChannel(String channelId) async {
     try {
-      return await _api.followChannel();
+      return await _api.followChannel(channelId);
     } catch (e) {
       throw Exception('Failed followChannel: $e');
     }

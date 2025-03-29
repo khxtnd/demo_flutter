@@ -7,8 +7,8 @@ class FollowChannel {
 
   FollowChannel(this.repository);
 
-  Future<bool> call() async {
-    return await repository.followChannel();
+  Future<bool> call(String channelId) async {
+    return await repository.followChannel(channelId);
   }
 }
 
